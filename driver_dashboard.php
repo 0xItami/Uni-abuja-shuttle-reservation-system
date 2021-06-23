@@ -1,12 +1,12 @@
 <?php session_start();
 //Validation login Session
-if(strlen($_SESSION['uid'])==0)
+if(strlen($_SESSION['driver'])==0)
  { 
   header("Location:logout.php"); }
  else{
   require "config.php";
-  $user_id = $_SESSION['uid'];
-  $query = "SELECT * FROM `bookings` WHERE user_id=$user_id ";
+  $user_id = $_SESSION['driver'];
+  $query = "SELECT * FROM `bookings` WHERE user_id=$user_id ORDER BY id desc LIMIT 6 ";
   $result = mysqli_query($mysqli, $query);
   $booked_rides = mysqli_num_rows($result);
   $cash_spent = $booked_rides * 100;
@@ -49,7 +49,7 @@ if(strlen($_SESSION['uid'])==0)
      ");
    }
 ?>
-<?php include("includes/header.php") ?>
+<?php include("includes/drivers/header.php") ?>
 
 <div class="wrapper">
 
@@ -76,7 +76,7 @@ if(strlen($_SESSION['uid'])==0)
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php include('includes/sidebar.php') ?>
+  <?php include('includes/drivers/sidebar.php') ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -109,7 +109,7 @@ if(strlen($_SESSION['uid'])==0)
               
                 <h3><?php echo($booked_rides); ?></h3>
               
-                <p>Booked Rides</p>
+                <p>Newly Booked Rides</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -122,10 +122,12 @@ if(strlen($_SESSION['uid'])==0)
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>₦<?php echo($cash_spent); ?></h3> 
+                <h5>Arrival at destination</h5> 
             <sup style="font-size: 20px"></sup></h3>
+            <br>
 
-                <p>Cash Spent</p>
+            <button class="btn btn-light">Destination Reached</button>
+
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -139,68 +141,7 @@ if(strlen($_SESSION['uid'])==0)
         <!-- /.row -->
       </div><!-- /.container-fluid -->
       <section class="ftco-section ftco-no-pt bg-light">
-    	<div class="container">
-    		<div class="row justify-content-center">
-          <div class="col-md-12 heading-section text-center ftco-animate mb-5 fadeInUp ftco-animated">
-          	<span class="subheading">What we offer</span>
-            <h2 class="mb-2">Featured Vehicles</h2>
-          </div>
-        </div>
-    		<div class="row">
-   <div class="col-lg-4 col-12">
-     <div class="card bg-secondary">
-       <div class="card-header">
-         First Bus
-       </div>
-       <div class="card-body">
-         
-      <div class="row justify-content-center">
-            <img src="dist/img/1.jpg" alt="" style="width: auto;height: 200px;" class="rounded">
-      </div>
-      <br>
-       <div class="row justify-content-center">
-         <a href="payment.php?id=1"><button class="btn btn-success">Book Now</button></a>
-       </div>
-       </div>
-     </div>
-   </div>
-   <div class="col-lg-4 col-12">
-     <div class="card bg-secondary">
-       <div class="card-header">
-         Second Bus
-       </div>
-       <div class="card-body">
-       <div class="row justify-content-center">
-            <img src="dist/img/2.jpg" alt="" style="width: auto;height: 200px;" class="rounded">
-            <br>
- 
-      </div>
-      <br>
-      
-       <div class="row justify-content-center">
-         <a href="payment.php?id=2"><button class="btn btn-success">Book Now</button></a>
-       </div>
-       </div>
-     </div>
-   </div>
-   <div class="col-lg-4 col-12">
-     <div class="card bg-secondary">
-       <div class="card-header">
-         Third Bus
-       </div>
-       <div class="card-body">
-       <div class="row justify-content-center">
-            <img src="dist/img/3.jfif" alt="" style="width: auto;height: 200px;" class="rounded">
-      </div>
-      <br>
-       <div class="row justify-content-center">
-         <a href="payment.php?id=3"><button class="btn btn-success">Book Now</button></a>
-       </div>
-       </div>
-     </div>
-   </div>
-    		</div>
-    	</div>
+
     </section>
     </div>
     <!-- /.content -->
@@ -221,4 +162,4 @@ if(strlen($_SESSION['uid'])==0)
 <?php 
 include('includes/footer.php');
 $_SESSION['success_message'] = "";
-} ?>
+} ?>                                                                                                                                                                                                                                                     

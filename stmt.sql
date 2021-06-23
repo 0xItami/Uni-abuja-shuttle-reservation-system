@@ -34,6 +34,7 @@ CREATE TABLE `bookings` (
   `status` varchar(255) DEFAULT NULL,
   `ticket_code` varchar(255) DEFAULT NULL,
   `seat_no` varchar(255) DEFAULT NULL,
+  `destination` varchar(255) DEFAULT NULL,
   `date` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -41,8 +42,6 @@ CREATE TABLE `bookings` (
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `bus_id`, `user_id`, `status`, `ticket_code`, `seat_no`, `date`) VALUES
-(1, '1', '3', 'taken', 'TC4674995909', '1', '2021-06-22 19:19:17');
 
 -- --------------------------------------------------------
 
@@ -90,10 +89,12 @@ INSERT INTO `buses` (`id`, `bus_id`, `seat_no`, `status`, `date`) VALUES
 
 CREATE TABLE `tblusers` (
   `id` int(11) NOT NULL,
-  `FullName` varchar(255) DEFAULT NULL,
-  `EmailId` varchar(255) DEFAULT NULL,
-  `MobileNumber` bigint(10) DEFAULT NULL,
-  `Password` varchar(255) DEFAULT NULL,
+  `FullName` varchar(255) NOT NULL,
+  `EmailId` varchar(255) NOT NULL,
+  `MobileNumber` bigint(10) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Role` varchar(255) NOT NULL,
+  `bus_id` varchar(255) DEFAULT NULL,
   `RegDate` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -101,10 +102,12 @@ CREATE TABLE `tblusers` (
 -- Dumping data for table `tblusers`
 --
 
-INSERT INTO `tblusers` (`id`, `FullName`, `EmailId`, `MobileNumber`, `Password`, `RegDate`) VALUES
-(1, 'Anuj kumar', 'phpgurukulteam@gmail.com', 1234567890, 'Test@123', '2021-05-28 09:51:01'),
-(2, 'Amit Singh', 'amit@gmail.com', 4589123410, 'Test@123', '2021-05-28 09:56:23'),
-(3, 'Test User', 'admin@gmail.com', 9099624342, '1234', '2021-06-19 09:49:16');
+INSERT INTO `tblusers` (`id`, `FullName`, `EmailId`, `MobileNumber`, `Password`, `Role`, `bus_id` `RegDate`) VALUES
+(1, 'Test User', 'user@gmail.com', 9099624342, '1234', 'user', '', '2021-06-19 09:49:16');
+(2, 'Test Driver', 'driver1@gmail.com', 9099624342, '1234', 'driver', '1' '2021-06-19 09:49:16');
+(3, 'Test Admin', 'admin@gmail.com', 9099624342, '1234', 'admin', '', '2021-06-19 09:49:16');
+(4, 'Test Driver2', 'driver1@gmail.com', 9099624342, '1234', 'driver', '2' '2021-06-19 09:49:16');
+(5, 'Test Driver'2, 'driver1@gmail.com', 9099624342, '1234', 'driver', '3' '2021-06-19 09:49:16');
 
 --
 -- Indexes for dumped tables

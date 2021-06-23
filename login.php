@@ -1,5 +1,16 @@
 <?php session_start();
 include_once('config.php');
+
+if (!empty($_SESSION['uid'])) {
+  header('location:index.php');
+}
+if (!empty($_SESSION['driver'])) {
+  header('location:driver_dashboard.php');
+}
+if (!empty($_SESSION['admin'])) {
+  header('location:admin_dashboard.php');
+}
+
 //Coding For Signup
 if(isset($_POST['login']))
 {
@@ -7,17 +18,27 @@ if(isset($_POST['login']))
 $status = 'true';
 $email=$_POST['email'];	
 $pass=$_POST['password'];	
-$stmt = $mysqli->prepare( "SELECT FullName,id,Password FROM tblusers WHERE (EmailId=?)");
+$stmt = $mysqli->prepare( "SELECT FullName,id,Password,Role,bus_id FROM tblusers WHERE (EmailId=?)");
 $stmt->bind_param('s',$email);
 $stmt->execute();
-$stmt->bind_result($FullName,$id,$Password);
+$stmt->bind_result($FullName,$id,$Password,$Role,$bus_id);
 $rs= $stmt->fetch();
 $stmt->close();
 
   if($pass == $Password){
-    $_SESSION['fname']=$FullName;
-    $_SESSION['uid']=$id;
-    header('location:index.php');
+    if ($Role == "user") {
+      $_SESSION['fname']=$FullName;
+      $_SESSION['uid']=$id;
+      header('location:index.php');
+    }elseif ($Role == "driver") {
+      $_SESSION['fname']=$FullName;
+      $_SESSION['driver']=$id;
+      $_SESSION['bus_id'] = $bus_id;
+      header('location:driver_dashboard.php');
+    }elseif ($Role == "admin") {
+      # code...
+    }
+
   }
   else {
    $status = 'false';

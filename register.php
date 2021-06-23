@@ -1,5 +1,15 @@
 <?php
 include_once('config.php');
+if (!empty($_SESSION['uid'])) {
+  header('location:index.php');
+}
+if (!empty($_SESSION['driver'])) {
+  header('location:driver_dashboard.php');
+}
+if (!empty($_SESSION['admin'])) {
+  header('location:admin_dashboard.php');
+}
+
 //Coding For Signup
 if(isset($_POST['signup']))
 {
