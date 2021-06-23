@@ -32,9 +32,9 @@ echo "<script>alert('Email id already associated with another account. Please tr
 } 
 // If email not exist
 else {
-$sql="INSERT into tblusers(FullName,EmailId,MobileNumber,Password)VALUES(?,?,?,?)";
+$sql="INSERT into tblusers(FullName,EmailId,MobileNumber,Password,Role,bus_id)VALUES(?,?,?,?,?,?)";
 $stmti = $mysqli->prepare($sql);
-$stmti->bind_param('ssis',$fname,$email,$mobile,$pass);
+$stmti->bind_param('ssis',$fname,$email,$mobile,$pass,'user','null');
 $stmti->execute();
 $stmti->close();
 $_SESSION['success_message'] = 'User registerd Successfully';
@@ -58,12 +58,20 @@ header('location:login.php');
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+  body {
+  background-image: url('dist/img/campus.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+  </style>
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="index2.html" class="h1"><b>T</b>RANSIT</a>
+    <a href="#" class="h6"><b>University of Abuja reservation system</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Register a new membership</p>

@@ -82,7 +82,7 @@ if (strlen($_SESSION['uid']) == 0) {
               <div class="row">
                 <div class="col-12">
                   <h4>
-                    <i class="fas fa-globe"></i> Transit Uninversity of abuja, Inc.
+                    <i class="fas fa-globe"></i> University of Abuja reservation system.
                   </h4>
                 </div>
                 <!-- /.col -->

@@ -63,13 +63,21 @@ $stmt->close();
   <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+  body {
+  background-image: url('dist/img/campus.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+  </style>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>T</b>RANSIT</a>
+      <a href="#" class="h6"><b>University of Abuja reservation system</b></a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
@@ -113,7 +121,7 @@ $stmt->close();
         <a href="forgot-password.html">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.card-body -->
@@ -157,6 +165,8 @@ $(function() {
         text: 'Invalid username or password!',
       })
   <?php    } ?>
+
+
 });
 </script>
 </body>
