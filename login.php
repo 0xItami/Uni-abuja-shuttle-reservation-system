@@ -12,37 +12,36 @@ if (!empty($_SESSION['uid'])) {
 //Coding For Signup
 if(isset($_POST['login']))
 {
-//Getting Psot Values
-$status = 'true';
-$email=$_POST['email'];	
-$pass=$_POST['password'];	
-$stmt = $mysqli->prepare( "SELECT FullName,id,Password,Role,bus_id FROM tblusers WHERE (EmailId=?)");
-$stmt->bind_param('s',$email);
-$stmt->execute();
-$stmt->bind_result($FullName,$id,$Password,$Role,$bus_id);
-$rs= $stmt->fetch();
-$stmt->close();
+  //Getting Psot Values
+  $email=$_POST['email'];	
+  $pass=$_POST['password'];	
+  $stmt = $mysqli->prepare( "SELECT FullName,id,Password,Role,bus_id FROM tblusers WHERE (EmailId=?)");
+  $stmt->bind_param('s',$email);
+  $stmt->execute();
+  $stmt->bind_result($FullName,$id,$Password,$Role,$bus_id);
+  $rs= $stmt->fetch();
+  $stmt->close();
 
   if($pass == $Password){
-    if ($Role == "user") {
-      $_SESSION['fname']=$FullName;
-      $_SESSION['uid']=$id;
-      header('location:index.php');
-    }elseif ($Role == "driver") {
-      $_SESSION['fname']=$FullName;
-      $_SESSION['driver']=$id;
-      $_SESSION['bus_id'] = $bus_id;
-      header('location:driver_dashboard.php');
-    }elseif ($Role == "admin") {
-      $_SESSION['fname']=$FullName;
-      $_SESSION['admin']=$id;
-      header('location:admin_dashboard.php');
+      if ($Role == "user") {
+        $_SESSION['fname']=$FullName;
+        $_SESSION['uid']=$id;
+        header('location:index.php');
+      }elseif ($Role == "driver") {
+        $_SESSION['fname']=$FullName;
+        $_SESSION['driver']=$id;
+        $_SESSION['bus_id'] = $bus_id;
+        header('location:driver_dashboard.php');
+      }elseif ($Role == "admin") {
+        $_SESSION['fname']=$FullName;
+        $_SESSION['admin']=$id;
+        header('location:admin_dashboard.php');
+
+      }
 
     }
-
-  }
-  else {
-   $status = 'false';
+    else {
+    $_SESSION['success_message'] = 'Invalid username or password';
     }
 }
 ?>
@@ -159,13 +158,15 @@ $(function() {
       timer: 3000
     });
 
-   <?php if($status != "true"){?>
+   <?php if(!empty($_SESSION['success_message'])){?>
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Invalid username or password!',
-      })
-  <?php    } ?>
+      });
+    <?php   }
+  unset($_SESSION['success_message']);
+  ?>
 
 
 });
