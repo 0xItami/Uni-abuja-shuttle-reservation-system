@@ -1,15 +1,14 @@
 <?php session_start();
 //Validation login Session
-if (strlen($_SESSION['driver']) == 0) {
+if (strlen($_SESSION['admin']) == 0) {
     header("Location:logout.php");} else {
-    $id= $_SESSION['driver'];
-    $bus_id = $_SESSION['bus_id'];
+    $id= $_SESSION['admin'];
     require('config.php');
-    $query = "SELECT * FROM `bookings` WHERE bus_id=$bus_id AND NOT ticket_code='used' ORDER BY id desc LIMIT 6";
+    $query = "SELECT * FROM `tblusers` WHERE `Role`='driver'";
     $result = mysqli_query($mysqli, $query);
     
     ?>
-<?php include "includes/drivers/header.php";?>
+<?php include "includes/admin/header.php";?>
 
 <div class="wrapper">
 
@@ -35,7 +34,7 @@ if (strlen($_SESSION['driver']) == 0) {
   </nav>
   <!-- /.navbar -->
 
-  <?php include('includes/drivers/sidebar.php') ?>
+  <?php include('includes/admin/sidebar.php') ?>
   <!-- Main Sidebar Container -->
 
 
@@ -45,12 +44,12 @@ if (strlen($_SESSION['driver']) == 0) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Bookings</h1>
+            <h1>All Drivers</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Bookings</li>
+              <li class="breadcrumb-item active">Drivers</li>
             </ol>
           </div>
         </div>
@@ -69,7 +68,7 @@ if (strlen($_SESSION['driver']) == 0) {
         </div>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Recently Booked Tickets</h3>
+                <h3 class="card-title">All Drivers</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -77,9 +76,10 @@ if (strlen($_SESSION['driver']) == 0) {
                   <thead>
                   <tr>
                     <th>id</th>
-                    <th>Ticket Code</th>
-                    <th>Seat Number</th>
-                    <th>Destination</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Role</th>            
                     <th>Date</th>
                   </tr>
                   </thead>
@@ -88,20 +88,23 @@ if (strlen($_SESSION['driver']) == 0) {
                   <?php while ($row1 = mysqli_fetch_array($result)): ;?>
                   <tr>
                     <td><?php echo $row1['id']; ?></td>
-                    <td><?php echo $row1['ticket_code']; ?></td>
-                    <td><?php echo $row1['seat_no']; ?></td>
-                    <td><?php echo $row1['destination']; ?></td>
-                    <td><?php echo $row1['date']; ?></td>
+                    <td><?php echo $row1['FullName']; ?></td>
+                    <td><?php echo $row1['EmailId']; ?></td>
+                    <td><?php echo $row1['MobileNumber']; ?></td>
+                    <td><?php echo $row1['Role']; ?></td>
+                    <td><?php echo $row1['RegDate']; ?></td>
                   </tr>
                     <?php endwhile;?>
                  <?php } ?>
                   </tbody>
                   <tfoot>
                   <tr>
+
                   <th>id</th>
-                    <th>Ticket Code</th>
-                    <th>Seat Number</th>
-                    <th>Destination</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Role</th>            
                     <th>Date</th>
                   </tr>
                   </tfoot>

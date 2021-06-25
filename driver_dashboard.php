@@ -1,53 +1,33 @@
 <?php session_start();
+
 //Validation login Session
 if(strlen($_SESSION['driver'])==0)
  { 
   header("Location:logout.php"); }
  else{
+
   require "config.php";
   $user_id = $_SESSION['driver'];
-  $query = "SELECT * FROM `bookings` WHERE user_id=$user_id ORDER BY id desc LIMIT 6 ";
+  $bus_id = $_SESSION['bus_id'];
+  $query = "SELECT * FROM `bookings` WHERE bus_id=$bus_id AND NOT ticket_code='used' ORDER BY id desc LIMIT 6";
   $result = mysqli_query($mysqli, $query);
   $booked_rides = mysqli_num_rows($result);
-  $cash_spent = $booked_rides * 100;
 
+  if (isset($_POST['arrival'])){
 
-  if (isset($_POST['submit'])){
+    $query2 = "UPDATE bookings SET ticket_code='used' WHERE bus_id=$bus_id AND NOT ticket_code='used'";
+    $query3 = "UPDATE buses SET status='free' WHERE bus_id=$bus_id";
+    $work = mysqli_query($mysqli, $query2);
+    $work2 = mysqli_query($mysqli, $query3);
 
-    $seat_id = $_REQUEST['seat_no'];
-    $destination = $_REQUEST['destination'];
-    $bus_id = $_SESSION['bus'];
-    $randnum = rand(1111111111, 9999999999);
-    $ticked_id = "TC" . $randnum;
-
-    $sql = "INSERT INTO bookings "."(bus_id, user_id, status, ticket_code, seat_no, destination)". "VALUES('$bus_id', '$user_id', 'taken', '$ticked_id', '$seat_id', '$destination')";
-    $query2 = "UPDATE buses SET status='taken' WHERE bus_id=$bus_id AND seat_no=$seat_id";
-
-    $work1 = mysqli_query($mysqli, $sql);
-    $work2 = mysqli_query($mysqli, $query2);
-    if ($work1 && $work2) {
-        $_SESSION['success_message'] = "ride booked successfully";
-        echo"<script>alert('ride booked successfully');</script>";
+    if ($work2 && $work) {
+        $_SESSION['success_message'] = "rides reset successfully";
     } else {
       $_SESSION['error_message'] = "an error occured";
-      echo"<script>
-      alert('".mysqli_error($mysqli)."');
-      </script>";
     }
 
+  }
 
-}
-
-   if(!empty($_SESSION['success_message'])){
-     echo("<script>
-     Swal.fire({
-      icon: 'success',
-      title: 'success',
-      text: '".$_SESSION['success_message']."',
-    })
-     </script>
-     ");
-   }
 ?>
 <?php include("includes/drivers/header.php") ?>
 
@@ -126,8 +106,9 @@ if(strlen($_SESSION['driver'])==0)
             <sup style="font-size: 20px"></sup></h3>
             <br>
 
-            <button class="btn btn-light">Destination Reached</button>
-
+          <form  method="post">
+            <button type="submit" name="arrival" class="btn btn-light">Destination Reached</button>
+          </form>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -161,5 +142,33 @@ if(strlen($_SESSION['driver'])==0)
 
 <?php 
 include('includes/footer.php');
-$_SESSION['success_message'] = "";
-} ?>                                                                                                                                                                                                                                                     
+if($_SESSION['success_message'] != ""){
+  echo("<script>
+  $(window).onload(function(){
+  Swal.fire({
+   icon: 'success',
+   title: 'success',
+   text: '".$_SESSION['success_message']."',
+ });
+});
+  </script>
+  "
+);
+unset($_SESSION['success_message']);
+}elseif ($_SESSION['error_message'] != ""){
+  
+ echo("<script>
+ $(window).onload(function(){
+ Swal.fire({
+  icon: 'error',
+  title: 'Oops..',
+  text: '".$_SESSION['error_message']."',
+});
+});
+
+ </script>
+ ");
+ $_SESSION['error_message'] = "";
+ unset($_SESSION['success_message']);
+}
+} ?>

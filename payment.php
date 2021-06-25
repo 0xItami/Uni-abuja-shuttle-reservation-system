@@ -87,25 +87,8 @@ if (strlen($_SESSION['uid']) == 0) {
                 </div>
                 <!-- /.col -->
               </div>
-<br>
-            <!-- <div class="row justify-content-center">
-            <br>
-            <div class="card col-12">
-            <div class="card-header">
-            <h5>Select Your Seat</h5>
-            <p>Availible seats:</p>
-            </div>
+          <br>
 
-            <form action="index.php" method="post" class="form">
-            <div class="card-body">
-
-            <select name="seat_no" class="form-control select" required>
-
-            </select>
-            </div>
-
-            </div>
-            </div> -->
             <div class="card card-default">
           <div class="card-header">
             <h3 class="card-title">Select a seat and destinaton </h3>
@@ -126,17 +109,18 @@ if (strlen($_SESSION['uid']) == 0) {
               <div class="col-md-6" data-select2-id="29">
                 <div class="form-group">
                   <label>Available seats</label>
-                  <select name="seat_no" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                  <?php if ($result != '') {?>
+                  <?php if ($result !== "") {?>
+                    <select name="seat_no" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+
                   <?php while ($row1 = mysqli_fetch_array($result)): ;?>
 
                       <option value="<?php echo $row1['seat_no']; ?>">Seat <?php echo $row1['seat_no']; ?></option>
-
                     <?php endwhile;?>
+                    </select>
+
                   <?php } else {?>
                     <p class="text-danger">Bus is Occupied and in transit please check other buses</p>
                   <?php }?>
-                  </select>
                 </div>
                 <!-- /.form-group -->
                 <!-- /.form-group -->
@@ -164,58 +148,6 @@ if (strlen($_SESSION['uid']) == 0) {
           </div>
           </form>
         </div>
-              <!-- Table row -->
-              <!-- <div class="row">
-                <div class="col-12 table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                    <tr>
-                      <th>Qty</th>
-                      <th>Product</th>
-                      <th>Serial #</th>
-                      <th>Description</th>
-                      <th>Subtotal</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Call of Duty</td>
-                      <td>455-981-221</td>
-                      <td>El snort testosterone trophy driving gloves handsome</td>
-                      <td>$64.50</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Need for Speed IV</td>
-                      <td>247-925-726</td>
-                      <td>Wes Anderson umami biodiesel</td>
-                      <td>$50.00</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Monsters DVD</td>
-                      <td>735-845-642</td>
-                      <td>Terry Richardson helvetica tousled street art master</td>
-                      <td>$10.70</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Grown Ups Blue Ray</td>
-                      <td>422-568-642</td>
-                      <td>Tousled lomo letterpress</td>
-                      <td>$25.99</td>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.col -->
-              <!-- </div> -->
-              <!-- /.row -->
-
-
-              <!-- /.row -->
-
 
 
             </div>

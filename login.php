@@ -3,11 +3,9 @@ include_once('config.php');
 
 if (!empty($_SESSION['uid'])) {
   header('location:index.php');
-}
-if (!empty($_SESSION['driver'])) {
+}elseif (!empty($_SESSION['driver'])) {
   header('location:driver_dashboard.php');
-}
-if (!empty($_SESSION['admin'])) {
+}elseif (!empty($_SESSION['admin'])) {
   header('location:admin_dashboard.php');
 }
 
@@ -36,7 +34,10 @@ $stmt->close();
       $_SESSION['bus_id'] = $bus_id;
       header('location:driver_dashboard.php');
     }elseif ($Role == "admin") {
-      # code...
+      $_SESSION['fname']=$FullName;
+      $_SESSION['admin']=$id;
+      header('location:admin_dashboard.php');
+
     }
 
   }

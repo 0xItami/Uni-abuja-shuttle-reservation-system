@@ -1,15 +1,14 @@
 <?php session_start();
 //Validation login Session
-if (strlen($_SESSION['driver']) == 0) {
+if (strlen($_SESSION['admin']) == 0) {
     header("Location:logout.php");} else {
-    $id= $_SESSION['driver'];
-    $bus_id = $_SESSION['bus_id'];
+    $id= $_SESSION['admin'];
     require('config.php');
-    $query = "SELECT * FROM `bookings` WHERE bus_id=$bus_id AND NOT ticket_code='used' ORDER BY id desc LIMIT 6";
+    $query = "SELECT * FROM `bookings`";
     $result = mysqli_query($mysqli, $query);
     
     ?>
-<?php include "includes/drivers/header.php";?>
+<?php include "includes/admin/header.php";?>
 
 <div class="wrapper">
 
@@ -35,7 +34,7 @@ if (strlen($_SESSION['driver']) == 0) {
   </nav>
   <!-- /.navbar -->
 
-  <?php include('includes/drivers/sidebar.php') ?>
+  <?php include('includes/admin/sidebar.php') ?>
   <!-- Main Sidebar Container -->
 
 
