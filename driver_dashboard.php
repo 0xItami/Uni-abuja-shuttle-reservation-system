@@ -144,13 +144,12 @@ if(strlen($_SESSION['driver'])==0)
 include('includes/footer.php');
 if($_SESSION['success_message'] != ""){
   echo("<script>
-  $(window).onload(function(){
   Swal.fire({
    icon: 'success',
    title: 'success',
    text: '".$_SESSION['success_message']."',
  });
-});
+
   </script>
   "
 );
@@ -158,12 +157,12 @@ unset($_SESSION['success_message']);
 }elseif ($_SESSION['error_message'] != ""){
   
  echo("<script>
- $(window).onload(function(){
+
  Swal.fire({
   icon: 'error',
   title: 'Oops..',
   text: '".$_SESSION['error_message']."',
-});
+
 });
 
  </script>

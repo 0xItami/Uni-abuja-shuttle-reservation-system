@@ -127,4 +127,5 @@ if (strlen($_SESSION['admin']) == 0) {
 
 <?php
 include 'includes/footer.php';
+
 }?>
