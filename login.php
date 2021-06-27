@@ -41,7 +41,7 @@ if(isset($_POST['login']))
 
     }
     else {
-    $_SESSION['success_message'] = 'Invalid username or password';
+    $_SESSION['error_message'] = 'Invalid username or password';
     }
 }
 ?>
@@ -73,11 +73,16 @@ if(isset($_POST['login']))
   </style>
 </head>
 <body class="hold-transition login-page">
+<div class="row justify-content-center">
+    <img src="dist/img/logo.jpeg" style="width:100px; height:100px"alt="">
+    </div>
+    <br>
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h6"><b>University of Abuja reservation system</b></a>
+    
+      <a href="#" class="h6">University of Abuja shuttle reservation system</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
@@ -158,17 +163,25 @@ $(function() {
       timer: 3000
     });
 
-   <?php if(!empty($_SESSION['success_message'])){?>
+   <?php if(!empty($_SESSION['error_message'])){?>
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Invalid username or password!',
       });
     <?php   }
-  unset($_SESSION['success_message']);
+  unset($_SESSION['error_message']);
   ?>
 
-
+<?php if(!empty($_SESSION['success_message'])){?>
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'please login with your details!',
+      });
+    <?php   }
+  unset($_SESSION['success_message']);
+  ?>
 });
 </script>
 </body>

@@ -17,7 +17,9 @@ if(isset($_POST['signup']))
 $fname=$_POST['fullname'];	
 $email=$_POST['email'];	
 $mobile=$_POST['mobilenumber'];	
-$pass=$_POST['password'];	
+$pass=$_POST['password'];
+$role = 	'user';
+$bus_id = 'null';
 //Checking email id exist for not
 $result ="SELECT count(*) FROM tblusers WHERE EmailId=?";
 $stmt = $mysqli->prepare($result);
@@ -34,11 +36,15 @@ echo "<script>alert('Email id already associated with another account. Please tr
 else {
 $sql="INSERT into tblusers(FullName,EmailId,MobileNumber,Password,Role,bus_id)VALUES(?,?,?,?,?,?)";
 $stmti = $mysqli->prepare($sql);
-$stmti->bind_param('ssis',$fname,$email,$mobile,$pass,'user','null');
+$stmti->bind_param('ssssss', $fname,$email,$mobile,$pass,$role,$bus_id);
 $stmti->execute();
 $stmti->close();
-$_SESSION['success_message'] = 'User registerd Successfully';
-header('location:login.php');
+
+$_SESSION['success_message'] = 'User registered Successfully';
+$_SESSION['fname']=$FullName;
+$_SESSION['uid']=$id;
+header('location:index.php');
+
 }
 }
 
@@ -68,10 +74,14 @@ header('location:login.php');
   </style>
 </head>
 <body class="hold-transition register-page">
+<div class="row justify-content-center">
+    <img src="dist/img/logo.jpeg" style="width:100px; height:100px"alt="">
+    </div>
+    <br>
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-    <a href="#" class="h6"><b>University of Abuja reservation system</b></a>
+    <a href="#" class="h6">University of Abuja shuttle reservation system</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Register a new membership</p>
