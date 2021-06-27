@@ -84,16 +84,16 @@ if (strlen($_SESSION['admin']) == 0) {
                   </thead>
                   <tbody>
                   <?php if($result != "") {?>
-                  <?php while ($row1 = mysqli_fetch_array($result)): ;?>
+                  <?php $i = 1;
+                    while ($row1 = mysqli_fetch_array($result)){?>
                   <tr>
-                    <td><?php echo $row1['id']; ?></td>
+                    <td><?php echo $i; ?></td>
                     <td><?php echo $row1['ticket_code']; ?></td>
                     <td><?php echo $row1['seat_no']; ?></td>
                     <td><?php echo $row1['destination']; ?></td>
                     <td><?php echo $row1['date']; ?></td>
                   </tr>
-                    <?php endwhile;?>
-                 <?php } ?>
+                    <?php $i++;} }?>
                   </tbody>
                   <tfoot>
                   <tr>

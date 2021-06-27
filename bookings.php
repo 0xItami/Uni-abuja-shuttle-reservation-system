@@ -5,7 +5,7 @@ if (strlen($_SESSION['uid']) == 0) {
     $id= $_SESSION['uid'];
     require('config.php');
     $query = "SELECT * FROM `bookings` WHERE user_id=$id ORDER BY `id` desc";
-    $query2 = "SELECT *  FROM `bookings` WHERE user_id=$id ORDER BY `id` desc";
+    $query2 = "SELECT *  FROM `bookings` WHERE user_id=$id ORDER BY `id` desc LIMIT 1";
 
     $result = mysqli_query($mysqli, $query);
     $data = mysqli_query($mysqli, $query2);
@@ -89,14 +89,16 @@ if (strlen($_SESSION['uid']) == 0) {
                   </tr>
                   </thead>
                   <tbody>
-                  <?php while ($row1 = mysqli_fetch_array($result)): ;?>
+                  <?php $i = 1;
+                  while($row1 = mysqli_fetch_array($result)){ 
+                    ?>
                   <tr>
-                    <td><?php echo $row1['id']; ?></td>
+                    <td><?php  echo $i; ?></td>
                     <td><?php echo $row1['ticket_code']; ?></td>
                     <td><?php echo $row1['seat_no']; ?></td>
                     <td><?php echo $row1['date']; ?></td>
                   </tr>
-                    <?php endwhile;?>
+                    <?php $i++;}?>
                  
                   </tbody>
                   <tfoot>
